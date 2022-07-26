@@ -15,7 +15,14 @@ const repository = new userRepository();
 const service = new UserService(repository);
 const userController = new UserController(service);
 
-router.get("/users", validator.query(userQuerySchema), controller.getUser);
+router.get("/users", async (req, res) => {
+  await userController.getAll(req, res);
+});
+router.get(
+  "/users/:id",
+  validator.params(userQuerySchema),
+  async (req, res) => await userController.getById(req, res)
+);
 router.post(
   "/users",
   validator.body(userDefaultBodySchema),
@@ -25,11 +32,6 @@ router.put(
   "/users",
   validator.body(userDefaultBodySchema),
   controller.updateUser
-);
-
-router.get(
-  "/users/:id",
-  async (req, res) => await userController.getById(req, res)
 );
 
 module.exports = router;

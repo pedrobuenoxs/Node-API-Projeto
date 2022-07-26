@@ -10,7 +10,7 @@ class UserRepository {
   }
 
   async getUsers() {
-    const users = await this.db.collection("users").find({}).toArray();
+    const users = dataUser;
     return users;
   }
 
