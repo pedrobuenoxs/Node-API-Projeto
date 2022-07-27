@@ -20,9 +20,12 @@ class UserController {
     }
   }
   async create(req, res) {
+    const { id, name, birthDate } = req.body;
+    const user = { id, name, birthDate };
+
     try {
-      const user = await this.userService.createUser(req.body);
-      res.status(201).json(user);
+      const newUser = await this.userService.createUser(user);
+      res.status(201).json(newUser);
     } catch (err) {
       res.status(400).json(err.message);
     }

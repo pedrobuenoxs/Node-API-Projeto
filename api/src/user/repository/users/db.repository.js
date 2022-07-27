@@ -4,9 +4,16 @@ class UserRepository {
   async getUser(id) {
     const user = await dataUser.find((el) => el.id === Number(id));
     if (user === undefined) {
-      throw new Error("User not found");
+      return false;
     }
     return user;
+  }
+  async alreadyExist(id) {
+    const user = await dataUser.find((el) => el.id === Number(id));
+    if (user === undefined) {
+      return false;
+    }
+    return true;
   }
 
   async getUsers() {
@@ -15,8 +22,8 @@ class UserRepository {
   }
 
   async createUser(user) {
-    const result = await this.db.collection("users").insertOne(user);
-    return result.insertedId;
+    dataUser.push(user);
+    return dataUser;
   }
 
   async updateUser(id, user) {
