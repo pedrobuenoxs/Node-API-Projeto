@@ -12,10 +12,12 @@ class UserService {
     }
   }
   async getUsers() {
-    return await this.userRepository.getUsers();
+    const users = await this.userRepository.getUsers();
+    return users;
   }
   async createUser(user) {
-    return await this.userRepository.createUser(user);
+    const newUser = await this.userRepository.createUser(user);
+    return newUser;
   }
   async updateUser(user) {
     return await this.userRepository.updateUser(user);
