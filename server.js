@@ -1,15 +1,5 @@
-const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const app = express();
-const userRouter = require("./src/routes/userRoutes");
-const productRouter = require("./src/routes/productsRoutes");
-const swaggerFile = require("./src/swagger/swagger_output.json");
+const app = require("./api/app");
 
-app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
-app.use(express.json());
 app.listen(8080, () => {
   console.log("Server up...");
 });
-
-app.use("/api", userRouter);
-app.use("/api/products", productRouter);

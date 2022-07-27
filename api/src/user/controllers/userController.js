@@ -1,4 +1,4 @@
-const { dataUser } = require("../dbContent/users/user");
+const { dataUser } = require("../repository/users/user");
 
 const getUser = async (req, res) => {
   const userId = req.query.id;

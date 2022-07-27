@@ -1,4 +1,4 @@
-const { dataTshirt } = require("../dbContent/products/tshirts");
+const { dataTshirt } = require("../../dbContent/products/tshirts");
 
 const getProductBySize = async (req, res) => {
   const { size } = req.query;
