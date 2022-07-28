@@ -3,8 +3,9 @@ const router = express.Router();
 const { createValidator } = require("express-joi-validation");
 const validator = createValidator({});
 const {
-  userQuerySchema,
-  userDefaultBodySchema,
+  LoginSchema,
+  UserSchema,
+  byIDSchema,
 } = require("./middlewares/validator");
 
 const UserController = require("../controllers/user.controller");
