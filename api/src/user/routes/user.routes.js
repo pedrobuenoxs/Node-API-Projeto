@@ -29,13 +29,13 @@ router.get("/users", async (req, res) => {
 });
 router.get(
   "/users/:id",
-  validator.params(byIDSchema),
+  validator.query(byIDSchema),
   async (req, res) => await userController.getById(req, res)
 );
 router.put("/users", validator.body(UserSchema), async (req, res) =>
   userController.update(req, res)
 );
-router.delete("/users/:id", validator.params(byIDSchema), async (req, res) =>
+router.delete("/users/:id", validator.query(byIDSchema), async (req, res) =>
   userController.delete(req, res)
 );
 
