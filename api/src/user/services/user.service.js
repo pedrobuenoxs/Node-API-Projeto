@@ -5,21 +5,21 @@ class UserService {
   }
   async getUser(id) {
     try {
-      const user = await this.userRepository.getUser(id);
+      const user = await this.userRepository.findByID(id);
       return user;
     } catch (err) {
       throw new Error(err.message);
     }
   }
   async getUsers() {
-    const users = await this.userRepository.getUsers();
+    const users = await this.userRepository.findAll();
     return users;
   }
   async createUser(user) {
     try {
-      const alreadyExist = await this.userRepository.alreadyExist(user.id);
+      const alreadyExist = await this.userRepository.findByEmail(user.id);
       if (alreadyExist) throw new Error("User already exist");
-      const newUser = await this.userRepository.createUser(user);
+      const newUser = await this.userRepository.saveRecord(user);
       return newUser;
     } catch (error) {
       throw new Error(error.message);
@@ -28,7 +28,7 @@ class UserService {
 
   async updateUser(user) {
     try {
-      const _user = await this.userRepository.alreadyExist(user.id);
+      const _user = await this.userRepository.findByEmail(user.id);
       if (!_user) throw new Error("User does not exist");
       return await this.userRepository.updateUser(user);
     } catch (error) {

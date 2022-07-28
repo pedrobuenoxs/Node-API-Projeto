@@ -10,7 +10,7 @@ const {
 
 const UserController = require("../controllers/user.controller");
 const UserService = require("../services/user.service");
-const userRepository = require("../repository/users/db.repository");
+const userRepository = require("../repository/repository");
 const repository = new userRepository();
 const service = new UserService(repository);
 const userController = new UserController(service);
