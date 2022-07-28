@@ -1,4 +1,4 @@
-const { dataUser } = require("./user");
+let { dataUser } = require("./user");
 
 class UserRepository {
   async getUser(id) {
@@ -26,16 +26,23 @@ class UserRepository {
     return dataUser;
   }
 
-  async updateUser(id, user) {
-    const result = await this.db
-      .collection("users")
-      .updateOne({ _id: id }, { $set: user });
-    return result.modifiedCount;
+  async updateUser(user) {
+    const users = await dataUser.forEach((el) => {
+      if (el.id === Number(user.id)) {
+        el.name = user.name;
+        el.birthDate = user.birthDate;
+      }
+    });
+    dataUser = [];
+    dataUser = users;
+    return users;
   }
 
   async deleteUser(id) {
-    const result = await this.db.collection("users").deleteOne({ _id: id });
-    return result.deletedCount;
+    const users = await dataUser.filter((el) => el.id !== Number(id));
+    dataUser = [];
+    dataUser = users;
+    return users;
   }
 }
 

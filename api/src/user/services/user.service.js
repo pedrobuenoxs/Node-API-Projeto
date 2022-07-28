@@ -27,10 +27,22 @@ class UserService {
   }
 
   async updateUser(user) {
-    return await this.userRepository.updateUser(user);
+    try {
+      const _user = await this.userRepository.alreadyExist(user.id);
+      if (!_user) throw new Error("User does not exist");
+      return await this.userRepository.updateUser(user);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
   async deleteUser(id) {
-    return await this.userRepository.deleteUser(id);
+    try {
+      const alreadyExist = await this.userRepository.alreadyExist(id);
+      if (!alreadyExist) throw new Error("User does not exist");
+      return await this.userRepository.deleteUser(id);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 }
 

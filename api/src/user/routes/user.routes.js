@@ -28,10 +28,11 @@ router.post(
   validator.body(userDefaultBodySchema),
   async (req, res) => await userController.create(req, res)
 );
-router.put(
-  "/users",
-  validator.body(userDefaultBodySchema),
-  controller.updateUser
+router.put("/users", validator.body(userDefaultBodySchema), async (req, res) =>
+  userController.update(req, res)
+);
+router.delete("/users/:id", async (req, res) =>
+  userController.delete(req, res)
 );
 
 module.exports = router;

@@ -40,7 +40,7 @@ class UserController {
   }
   async delete(req, res) {
     try {
-      const user = await this.userService.deleteUser(req.query.id);
+      const user = await this.userService.deleteUser(req.params.id);
       res.status(200).json(user);
     } catch (err) {
       res.status(400).json(err.message);
