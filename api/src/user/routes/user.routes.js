@@ -6,7 +6,6 @@ const {
   userQuerySchema,
   userDefaultBodySchema,
 } = require("./middlewares/validator");
-const controller = require("../controllers/userController");
 
 const UserController = require("../controllers/user.controller");
 const UserService = require("../services/user.service");
@@ -15,23 +14,27 @@ const repository = new userRepository();
 const service = new UserService(repository);
 const userController = new UserController(service);
 
+router.get("/users/login", validator.body(LoginSchema), async (req, res) => {
+  userController.login(req, res);
+}); // login
+router.post(
+  "/users/register",
+  validator.body(UserSchema),
+  async (req, res) => await userController.create(req, res)
+);
+
 router.get("/users", async (req, res) => {
   await userController.getAll(req, res);
 });
 router.get(
   "/users/:id",
-  validator.params(userQuerySchema),
+  validator.params(byIDSchema),
   async (req, res) => await userController.getById(req, res)
 );
-router.post(
-  "/users",
-  validator.body(userDefaultBodySchema),
-  async (req, res) => await userController.create(req, res)
-);
-router.put("/users", validator.body(userDefaultBodySchema), async (req, res) =>
+router.put("/users", validator.body(UserSchema), async (req, res) =>
   userController.update(req, res)
 );
-router.delete("/users/:id", async (req, res) =>
+router.delete("/users/:id", validator.params(byIDSchema), async (req, res) =>
   userController.delete(req, res)
 );
 
