@@ -1,7 +1,7 @@
 const userRecordModel = require("./models/User.model");
 const mongoose = require("mongoose");
 
-class UserRepository {
+module.exports = class UserRepository {
   async saveRecord(data) {
     const record = new userRecordModel({
       _id: new mongoose.Types.ObjectId(),
@@ -38,6 +38,4 @@ class UserRepository {
       { new: true }
     );
   }
-}
-
-module.exports = UserRepository;
+};
